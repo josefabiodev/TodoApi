@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using TodoApi.Data;
 using TodoApi.Repositories;
 using TodoApi.Repositories.Interfaces;
@@ -25,6 +24,7 @@ namespace TodoApi
                 );
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 
             var app = builder.Build();
 
