@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Refit;
 using TodoApi.Data;
+using TodoApi.Integration;
+using TodoApi.Integration.Interfaces;
+using TodoApi.Integration.Refit;
 using TodoApi.Repositories;
 using TodoApi.Repositories.Interfaces;
 
@@ -25,6 +29,12 @@ namespace TodoApi
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
             builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+            builder.Services.AddScoped<IViaCepIntegration, ViaCepIntegration>();
+
+            builder.Services.AddRefitClient<IViaCepIntegrationRefit>().ConfigureHttpClient(c =>
+            {
+                c.BaseAddress = new Uri("https://viacep.com.br/");
+            });
 
             var app = builder.Build();
 
